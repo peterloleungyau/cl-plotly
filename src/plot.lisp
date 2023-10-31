@@ -1,7 +1,7 @@
 (in-package :cl-user)
 
 (defpackage :cl-plotly
-  (:use :cl)
+  (:use :cl :ec-json)
   ;; TODO: export symbols
   )
 
@@ -25,7 +25,7 @@ You can also manually download it to your system, and set this variable to the l
     (format out ";~3&"))
   ;; layout
   (format out "var layout = ")
-  (print-as-json layout)
+  (print-as-json layout out)
   (format out ";~3&")
   ;;
   (format out "var data = [")
@@ -52,7 +52,8 @@ center; }
 </head>
 <body>
 <div id='myDiv'></div>
-<script type='text/javascript'>" plotly-js-url)
+<script type='text/javascript'>
+" plotly-js-url)
   ;; generate the js for the traces and layout
   (print-plot-js traces layout out)
   ;;
