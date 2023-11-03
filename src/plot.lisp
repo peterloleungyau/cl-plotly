@@ -3,6 +3,10 @@
 (defpackage :cl-plotly
   (:use :cl :ec-json)
   ;; TODO: export symbols
+  (:export
+   print-as-html
+   write-to-html
+   )
   )
 
 (in-package :cl-plotly)

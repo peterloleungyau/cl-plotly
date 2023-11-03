@@ -1,0 +1,30 @@
+<html>
+<head>
+<style>html { height: 100%; }
+body { height: 100%; display: flex; justify-content: center; align-items:
+center; }
+</style>
+<script type='text/javascript' src='https://cdn.plot.ly/plotly-latest.min.js' charset='utf-8'></script>
+</head>
+<body>
+<div id='myDiv'></div>
+<script type='text/javascript'>
+var trace0 = {"x":[1, 2, 3, 4], "y":[10, 15, 13, 17], "mode":"markers", "marker":{"color":"rgb(219, 64, 82)", "size":12}};
+
+
+var trace1 = {"x":[2, 3, 4, 5], "y":[16, 5, 11, 9], "mode":"lines", "line":{"color":"rgb(55, 128, 191)", "width":3}};
+
+
+var trace2 = {"x":[1, 2, 3, 4], "y":[12, 9, 15, 12], "mode":"lines+markers", "marker":{"color":"rgb(128, 0, 128)", "size":8}, "line":{"color":"rgb(128, 0, 128)", "width":1}};
+
+
+var layout = {"title":"Line and Scatter Styling"};
+
+
+var data = [trace0, trace1, trace2, ];
+
+
+Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>

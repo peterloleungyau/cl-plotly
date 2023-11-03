@@ -1,0 +1,45 @@
+<html>
+<head>
+<style>html { height: 100%; }
+body { height: 100%; display: flex; justify-content: center; align-items:
+center; }
+</style>
+<script type='text/javascript' src='https://cdn.plot.ly/plotly-latest.min.js' charset='utf-8'></script>
+</head>
+<body>
+<div id='myDiv'></div>
+<script type='text/javascript'>
+var trace0 = {"x":[2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013], "y":[74, 82, 80, 74, 73, 72, 74, 70, 70, 66, 66, 69], "type":"scatter", "mode":"lines", "line":{"color":"rgba(67,67,67,1)", "width":2}};
+
+
+var trace1 = {"x":[2001, 2013], "y":[74, 69], "type":"scatter", "mode":"markers", "marker":{"color":"rgba(67,67,67,1)", "size":12}};
+
+
+var trace2 = {"x":[2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013], "y":[45, 42, 50, 46, 36, 36, 34, 35, 32, 31, 31, 28], "type":"scatter", "mode":"lines", "line":{"color":"rgba(115,115,115,1)", "width":2}};
+
+
+var trace3 = {"x":[2001, 2013], "y":[45, 28], "type":"scatter", "mode":"markers", "marker":{"color":"rgba(115,115,115,1)", "size":12}};
+
+
+var trace4 = {"x":[2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013], "y":[13, 14, 20, 24, 20, 24, 24, 40, 35, 41, 43, 50], "type":"scatter", "mode":"lines", "line":{"color":"rgba(49,130,189, 1)", "width":4}};
+
+
+var trace5 = {"x":[2001, 2013], "y":[13, 50], "type":"scatter", "mode":"markers", "marker":{"color":"rgba(49,130,189, 1)", "size":12}};
+
+
+var trace6 = {"x":[2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013], "y":[18, 21, 18, 21, 16, 14, 13, 18, 17, 16, 19, 23], "type":"scatter", "mode":"lines", "line":{"color":"rgba(189,189,189,1)", "width":2}};
+
+
+var trace7 = {"x":[2001, 2013], "y":[18, 23], "type":"scatter", "mode":"markers", "marker":{"color":"rgba(189,189,189,1)", "size":12}};
+
+
+var layout = {"showlegend":false, "height":600, "width":600, "xaxis":{"showline":true, "showgrid":false, "showticklabels":true, "linecolor":"rgb(204,204,204)", "linewidth":2, "autotick":false, "ticks":"outside", "tickcolor":"rgb(204,204,204)", "tickwidth":2, "ticklen":5, "tickfont":{"family":"Arial", "size":12, "color":"rgb(82, 82, 82)"}}, "yaxis":{"showgrid":false, "zeroline":false, "showline":false, "showticklabels":false}, "autosize":false, "margin":{"autoexpand":false, "l":100, "r":20, "t":100}, "annotations":[{"xref":"paper", "yref":"paper", "x":0.0, "y":1.05, "xanchor":"left", "yanchor":"bottom", "text":"Main Source for News", "font":{"family":"Arial", "size":30, "color":"rgb(37,37,37)"}, "showarrow":false}, {"xref":"paper", "yref":"paper", "x":0.5, "y":-0.1, "xanchor":"center", "yanchor":"top", "text":"Source: Pew Research Center & Storytelling with data", "showarrow":false, "font":{"family":"Arial", "size":12, "color":"rgb(150,150,150)"}}, {"xref":"paper", "x":0.05, "y":74, "xanchor":"right", "yanchor":"middle", "text":"Television 74%", "showarrow":false, "font":{"family":"Arial", "size":16, "color":"black"}}, {"xref":"paper", "x":0.95, "y":69, "xanchor":"left", "yanchor":"middle", "text":"69%", "font":{"family":"Arial", "size":16, "color":"black"}, "showarrow":false}, {"xref":"paper", "x":0.05, "y":45, "xanchor":"right", "yanchor":"middle", "text":"Newspaper 45%", "showarrow":false, "font":{"family":"Arial", "size":16, "color":"black"}}, {"xref":"paper", "x":0.95, "y":28, "xanchor":"left", "yanchor":"middle", "text":"28%", "font":{"family":"Arial", "size":16, "color":"black"}, "showarrow":false}, {"xref":"paper", "x":0.05, "y":13, "xanchor":"right", "yanchor":"middle", "text":"Internet 13%", "showarrow":false, "font":{"family":"Arial", "size":16, "color":"black"}}, {"xref":"paper", "x":0.95, "y":50, "xanchor":"left", "yanchor":"middle", "text":"50%", "font":{"family":"Arial", "size":16, "color":"black"}, "showarrow":false}, {"xref":"paper", "x":0.05, "y":18, "xanchor":"right", "yanchor":"middle", "text":"Radio 18%", "showarrow":false, "font":{"family":"Arial", "size":16, "color":"black"}}, {"xref":"paper", "x":0.95, "y":23, "xanchor":"left", "yanchor":"middle", "text":"23%", "font":{"family":"Arial", "size":16, "color":"black"}, "showarrow":false}]};
+
+
+var data = [trace0, trace1, trace2, trace3, trace4, trace5, trace6, trace7, ];
+
+
+Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>

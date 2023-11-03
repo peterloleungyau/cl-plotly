@@ -7,9 +7,9 @@
 (defparameter y
     (mapcar #'sin x))
 
-(cl-plotly::write-to-html
+(cl-plotly:write-to-html
  (list `(:x ,x
          :y ,y
          :mode "lines"))
  `(:title "Sin")
- "test1.html")
+ "test_line_sin.html")
