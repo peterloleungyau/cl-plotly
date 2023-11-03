@@ -1,0 +1,24 @@
+<html>
+<head>
+<style>html { height: 100%; }
+body { height: 100%; display: flex; justify-content: center; align-items:
+center; }
+</style>
+<script type='text/javascript' src='https://cdn.plot.ly/plotly-latest.min.js' charset='utf-8'></script>
+</head>
+<body>
+<div id='myDiv'></div>
+<script type='text/javascript'>
+var trace0 = {"x":["Product A", "Product B", "Product C"], "y":[20, 14, 23], "type":"bar", "text":["20", "14", "23"], "textposition":"auto", "hoverinfo":"none", "marker":{"color":"rgb(158,202,225)", "opacity":0.6, "line":{"color":"rgb(8,48,107)", "width":1.5}}};
+
+
+var layout = {"title":"January 2013 Sales Report", "barmode":"stack"};
+
+
+var data = [trace0, ];
+
+
+Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>

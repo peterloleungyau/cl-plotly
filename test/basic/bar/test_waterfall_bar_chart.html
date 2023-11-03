@@ -1,0 +1,33 @@
+<html>
+<head>
+<style>html { height: 100%; }
+body { height: 100%; display: flex; justify-content: center; align-items:
+center; }
+</style>
+<script type='text/javascript' src='https://cdn.plot.ly/plotly-latest.min.js' charset='utf-8'></script>
+</head>
+<body>
+<div id='myDiv'></div>
+<script type='text/javascript'>
+var trace0 = {"x":["Product<br>Revenue", "Services<br>Revenue", "Total<br>Revenue", "Fixed<br>Costs", "Variable<br>Costs", "Total<br>Costs", "Total"], "y":[0, 430, 0, 570, 370, 370, 0], "marker":{"color":"rgba(1,1,1,0.0)"}, "type":"bar"};
+
+
+var trace1 = {"x":["Product<br>Revenue", "Services<br>Revenue", "Total<br>Revenue", "Fixed<br>Costs", "Variable<br>Costs", "Total<br>Costs", "Total"], "y":[430, 260, 690, 0, 0, 0, 0], "type":"bar", "marker":{"color":"rgba(55,128,191,0.7)", "line":{"color":"rgba(55,128,191,1.0)", "width":2}}};
+
+
+var trace2 = {"x":["Product<br>Revenue", "Services<br>Revenue", "Total<br>Revenue", "Fixed<br>Costs", "Variable<br>Costs", "Total<br>Costs", "Total"], "y":[0, 0, 0, 120, 200, 320, 0], "type":"bar", "marker":{"color":"rgba(219 64 82 0.7)", "line":{"color":"rgba(219 64 82 1.0)", "width":2}}};
+
+
+var trace3 = {"x":["Product<br>Revenue", "Services<br>Revenue", "Total<br>Revenue", "Fixed<br>Costs", "Variable<br>Costs", "Total<br>Costs", "Total"], "y":[0, 0, 0, 0, 0, 0, 370], "type":"bar", "marker":{"color":"rgba(50,171 96 0.7)", "line":{"color":"rgba(50,171,96,1.0)", "width":2}}};
+
+
+var layout = {"title":"Annual Profit 2015", "barmode":"stack", "paper_bgcolor":"rgba(245,246,249,1)", "plot_bgcolor":"rgba(245,246,249,1)", "width":600, "height":600, "showlegend":false, "annotations":[{"x":"Product<br>Revenue", "y":400, "text":"$430K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Services<br>Revenue", "y":660, "text":"$260K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Total<br>Revenue", "y":660, "text":"$690K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Fixed<br>Costs", "y":590, "text":"$-120K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Variable<br>Costs", "y":400, "text":"$-200K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Total<br>Costs", "y":400, "text":"$-320K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}, {"x":"Total", "y":340, "text":"$370K", "font":{"family":"Arial", "size":14, "color":"rgba(245,246,249,1)"}, "showarrow":false}]};
+
+
+var data = [trace0, trace1, trace2, trace3, ];
+
+
+Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>

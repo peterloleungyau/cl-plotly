@@ -1,0 +1,27 @@
+<html>
+<head>
+<style>html { height: 100%; }
+body { height: 100%; display: flex; justify-content: center; align-items:
+center; }
+</style>
+<script type='text/javascript' src='https://cdn.plot.ly/plotly-latest.min.js' charset='utf-8'></script>
+</head>
+<body>
+<div id='myDiv'></div>
+<script type='text/javascript'>
+var trace0 = {"x":["giraffes", "orangutans", "monkeys"], "y":[20, 14, 23], "name":"SF Zoo", "type":"bar"};
+
+
+var trace1 = {"x":["giraffes", "orangutans", "monkeys"], "y":[12, 18, 29], "name":"LA Zoo", "type":"bar"};
+
+
+var layout = {"barmode":"group"};
+
+
+var data = [trace0, trace1, ];
+
+
+Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>
