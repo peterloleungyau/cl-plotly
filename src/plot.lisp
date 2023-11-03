@@ -6,6 +6,7 @@
   (:export
    print-as-html
    write-to-html
+   to-string
    )
   )
 
@@ -67,7 +68,14 @@ center; }
 </html>"))
 
 (defun write-to-html (traces layout out-file-path &key (plotly-js-url *plotly-js-url*))
+  (ensure-directories-exist out-file-path)
   (with-open-file (out out-file-path
                        :direction :output
                        :if-exists :supersede)
     (print-as-html traces layout :out out :plotly-js-url plotly-js-url)))
+
+;;;;
+;;; some convenient utility
+
+(defun to-string (x)
+  (format nil "~A" x))
