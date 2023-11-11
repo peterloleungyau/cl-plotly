@@ -7,8 +7,7 @@
    print-as-html
    write-to-html
    to-string
-   )
-  )
+   ))
 
 (in-package :cl-plotly)
 

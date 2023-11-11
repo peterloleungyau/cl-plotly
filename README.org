@@ -1,0 +1,192 @@
+#+STARTUP: indent
+#+STARTUP: overview
+#+STARTUP: logdone
+
+* cl-plotly
+
+=CL-PLOTLY= is a thin wrapper to help generate [[https://plotly.com/javascript/getting-started/][plotly]] graphs, which
+are interactive and viewed in a browser. Since plotly graphs are
+described by Javascript values (mostly objects of arrays of numbers or
+strings, and nested objects), it could be generated nicely with JSON,
+and this library just provides some convenient boilplates for
+generating the html file with embedded Javascript fragments for the
+graphs.
+
+Because plotly is already quite declarative, this library can be a
+thin wrapper but still easily use the full power of [[https://plotly.com/javascript/getting-started/][plotly]] library,
+with little work on our side.
+
+See https://plotly.com/javascript/reference/index/ for all the
+possible plot types and their allowed keys.
+
+** Examples
+Please check [[./examples][examples]] for some example plots following https://plotly.com/javascript/
+
+For example, the following code generates the following graph (here
+shown as image, but the html could be opened in a browser to see an
+interactive graph.
+
+#+begin_src lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; labelling lines with annotations
+
+  (let* ((x #(2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2013))
+         (y-data
+           #(#(74 82 80 74 73 72 74 70 70 66 66 69)
+             #(45 42 50 46 36 36 34 35 32 31 31 28)
+             #(13 14 20 24 20 24 24 40 35 41 43 50)
+             #(18 21 18 21 16 14 13 18 17 16 19 23)))
+         (colors
+           #("rgba(67,67,67,1)"
+             "rgba(115,115,115,1)"
+             "rgba(49,130,189, 1)"
+             "rgba(189,189,189,1)"))
+         (line-size #(2 2 4 2))
+         (line-labels #("Television" "Newspaper" "Internet" "Radio"))
+         (traces
+           (loop :for i :from 0 :below (length y-data)
+                 :collect `(:x ,x
+                            :y ,(aref y-data i) 
+                            :type "scatter"
+                            :mode "lines"
+                            :line (:color ,(aref colors i)
+                                   :width ,(aref line-size i)))
+                 :collect `(:x ,(vector (aref x 0) (aref x 11))
+                            :y ,(vector (aref (aref y-data i) 0)
+                                        (aref (aref y-data i) 11))
+                            :type "scatter"
+                            :mode "markers"
+                            :marker (:color ,(aref colors i)
+                                            :size 12))))
+         (layout
+           `(:showlegend :false
+             :height 600
+             :width 600
+             :xaxis (:showline :true
+                     :showgrid :false
+                     :showticklabels :true
+                     :linecolor "rgb(204,204,204)"
+                     :linewidth 2
+                     :autotick :false
+                     :ticks "outside"
+                     :tickcolor "rgb(204,204,204)"
+                     :tickwidth 2
+                     :ticklen 5
+                     :tickfont (:family "Arial"
+                                :size 12
+                                :color "rgb(82, 82, 82)"))
+             :yaxis (:showgrid :false
+                     :zeroline :false
+                     :showline :false
+                     :showticklabels :false)
+             :autosize :false
+             :margin (:autoexpand :false
+                      :l 100
+                      :r 20
+                      :t 100)
+             :annotations ,(concatenate
+                            'vector
+                            '((:xref "paper"
+                               :yref "paper"
+                               :x 0.0
+                               :y 1.05
+                               :xanchor "left"
+                               :yanchor "bottom"
+                               :text "Main Source for News"
+                               :font(:family "Arial"
+                                     :size 30
+                                     :color "rgb(37,37,37)")
+                               :showarrow :false)
+                              (:xref "paper"
+                               :yref "paper"
+                               :x 0.5
+                               :y -0.1
+                               :xanchor "center"
+                               :yanchor "top"
+                               :text "Source: Pew Research Center & Storytelling with data"
+                               :showarrow :false
+                               :font (:family "Arial"
+                                      :size 12
+                                      :color "rgb(150,150,150)")))
+                            ;;
+                            (loop :for i :below (length y-data)
+                                  :collect `(:xref "paper"
+                                             :x 0.05
+                                             :y ,(aref (aref y-data i) 0)
+                                             :xanchor "right"
+                                             :yanchor "middle"
+                                             :text ,(format nil "~A ~A%"
+                                                            (aref line-labels i)
+                                                            (aref (aref y-data i) 0))
+                                             :showarrow :false
+                                             :font (:family "Arial"
+                                                    :size 16
+                                                    :color "black"))
+                                  :collect `(:xref "paper"
+                                             :x 0.95
+                                             :y ,(aref (aref y-data i) 11)
+                                             :xanchor "left"
+                                             :yanchor "middle"
+                                             :text ,(format nil "~A%"
+                                                            (aref (aref y-data i) 11))
+                                             :font (:family "Arial"
+                                                    :size 16
+                                                    :color "black")
+                                             :showarrow :false))))))
+    ;;
+    (cl-plotly:write-to-html
+     traces layout
+     "test_labelling_lines_with_annotations.html"))
+#+end_src
+
+#+CAPTION: Labelling Lines with Annotations
+[[examples/labelling_lines_with_annotations.png]]
+
+** Installation
+*** Dependency
+This library uses [[https://github.com/peterloleungyau/ec-json][ec-json]] to generate the Javascript fragments (using
+JSON syntax). In fact the ec-json library was designed for use in
+cl-plotly, and later split into standalone library because it may be
+useful elsewhere.
+
+You may follow the installation instructions in [[https://github.com/peterloleungyau/ec-json][ec-json]], and they are
+similar to the below instructions, so also included below.
+
+*** With Quicklisp
+The simplest way is to use [[https://www.quicklisp.org/beta/][Quicklisp]].
+
+1. Clone the [[https://github.com/peterloleungyau/ec-json][ec-json]] dependency and this project into Quicklisp's
+   local-projects directory =~/quicklist/local-projects/=
+
+   #+begin_src bash
+     cd ~/quicklist/local-projects/
+     # if not cloned ec-json yet
+     git clone git@github.com:peterloleungyau/ec-json.git
+     # then clone cl-plotly
+     git clone git@github.com:peterloleungyau/cl-plotly.git
+   #+end_src
+
+2. Then in Lisp REPL, can load with
+
+#+begin_src lisp
+  (ql:quickload :cl-plotly)
+#+end_src
+
+*** With ASDF
+For more traditional [[https://asdf.common-lisp.dev/][ASDF]] configuration, you may do the following:
+
+1. Similar to the above, first clone [[https://github.com/peterloleungyau/ec-json][ec-json]] dependency and this
+   project into any of the local directories configured with
+   ASDF. E.g. look at =asdf:*central-registry*= in Lisp REPL to see
+   the configured directories.
+
+2. Then in Lisp REPL, can load with
+
+#+begin_src lisp
+  (asdf:load-system :cl-plotly)
+#+end_src
+
+** Possible Future Works
+- some convenient wrappers to generate some values, such as generate
+  =rgb(r, b, g)= or =rgba(r, b, g, a)=.
+- possibly provide some nice looking color palette.
