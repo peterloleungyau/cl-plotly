@@ -85,7 +85,7 @@ Please check [[./examples][examples]] for some example plots following https://p
 
 For example, the following code generates the following simple graph
 (here shown as image, but the html (see
-[[examples/basic/test_basic_bar_chart.html]]) could be opened in a browser
+[[examples/basic/bar/test_basic_bar_chart.html]]) could be opened in a browser
 to see an interactive graph.
 
 #+begin_src lisp
