@@ -19,12 +19,96 @@ with little work on our side.
 See https://plotly.com/javascript/reference/index/ for all the
 possible plot types and their allowed keys.
 
+** Usage
+A plotly plot consists of one or more /traces/ each of which is a JSON
+object ={key1:value1, key2:value2, ...}= describing one graph; and a
+/layout/ which is also a JSON object describing some global properties
+of the plot such as the axis labels, graph titles, etc. Examples of
+traces are line plot, scatter plot, bar plot, candlestick etc. The
+traces will be overlaid in the same plot.
+
+Therefore the main function of =cl-plotly= is =write-to-html=, which
+accepts:
+
+- =traces=: a list of Lisp value(s) that can be converted to JSON
+  key-value objects through =ec-json:print-as-json=, e.g. using a
+  plist, or an alist, or a hash-table. Each would describe a desired
+  graph to be overlaid in the same plot.
+
+- =layout=: Lisp value that can be converted to JSON key-value object
+  for the layout specification. This could be =NIL= if there is no
+  special layout that you wish to specify.
+
+- =out-file-path=: path to the output html file.
+
+- =plotly-js-url=: an optional keyword parameter which gives the URL
+  of the plotly js library, and defaults to =*plotly-js-url*= which is
+  the latest minified version from CDN. See
+  https://plotly.com/javascript/getting-started/ for possible URLs. It
+  is possible to set this parameter to a local path if you can rather
+  see a local version of the plotly library, but of course you need to
+  download one copy somewhere in your system.
+
+Note that you may use whatever code to generate the traces or layout,
+e.g. using a simple quoted list, or one constructed with backquote, or
+through a loop. This provides great flexibility.
+
+Please refer to [[https://github.com/peterloleungyau/ec-json][ec-json]] for the details of the mapping from Lisp
+values. For convenience, here is a summary table of the mapping (taken
+from [[https://github.com/peterloleungyau/ec-json/blob/master/README.org][ec-json's README.org]]), which should be sufficient for most plotly
+graphs.
+
+*** Value Mapping
+| From Lisp           | To JSON                   | Remarks                                               |
+|---------------------+---------------------------+-------------------------------------------------------|
+| =T=                 | =true=                    |                                                       |
+| =:true=             | =true=                    |                                                       |
+| =:false=            | =false=                   |                                                       |
+| =NIL=               | ={}=                      | Empty object                                          |
+| =:null=             | =null=                    |                                                       |
+| integer             | integer                   |                                                       |
+| real number         | real number               | Ratio is printed as single-float                      |
+| string              | string                    | Properly escaped JSON string.                         |
+| =#(v1 v2 ...)=      | =[v1, v2, ...]=           | Each value in the array is recursively output.        |
+| =#()=               | []                        |                                                       |
+| =JSON-VALUE=        | verbatim                  | Can control the exact thing printed.                  |
+| symbol              | string                    | Possibly with case conversion                         |
+| hash table          | ={"k1":v1, "k2":v2, ...}= | Order not guaranteed.                                 |
+| =(k1 v1 k2 v2 ...)= | ={"k1":v1, "k2":v2, ...}= | Plist, =k1= either symbol or string.                  |
+| =((k1 . v1) ...)=   | ={"k1":v1, ...}=          | Alist, keys may be case converted                     |
+| =plist-json-obj=    | object                    | Force to treat list as plist.                         |
+| =alist-json-obj=    | object                    | Force to treat list as alist.                         |
+| =(v1 v2 ...)=       | =[v1, v2, ...]=           | If =v1= is neither symbol nor string, treat as array. |
+
 ** Examples
 Please check [[./examples][examples]] for some example plots following https://plotly.com/javascript/
 
-For example, the following code generates the following graph (here
-shown as image, but the html could be opened in a browser to see an
-interactive graph.
+For example, the following code generates the following simple graph
+(here shown as image, but the html (see
+[[examples/basic/test_basic_bar_chart.html]]) could be opened in a browser
+to see an interactive graph.
+
+#+begin_src lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; basic bar chart
+  (cl-plotly:write-to-html
+   '(;; trace
+     (:x #("giraffes" "orangutans" "monkeys")
+      :y #(20 14 23)
+      :type "bar"))
+   ;; layout
+   nil
+   "test_basic_bar_chart.html")
+#+end_src
+
+#+CAPTION: Basic Bar Chart
+[[./examples/basic_bar_chart.png]]
+
+For a more complicated example, the following code uses Lisp loop to
+generate the traces and layout annotations, to result in a plot with a
+few lines. The image is shown below (again, the html version is
+interactive, see
+[[examples/basic/line/test_labelling_lines_with_annotations.html]]).
 
 #+begin_src lisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
