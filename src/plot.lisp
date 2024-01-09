@@ -19,7 +19,7 @@
 Please refer to https://plotly.com/javascript/getting-started/ for the possible URLs.
 You can also manually download it to your system, and set this variable to the local path.")
 
-(defun print-plot-js (traces layout &optional (out *standard-output*))
+(defun print-plot-js (traces layout &optional (out *standard-output*) config)
   ;; traces
   (do ((i 0 (1+ i))
        (trs traces (cdr trs)))
@@ -35,7 +35,11 @@ You can also manually download it to your system, and set this variable to the l
   (format out "var data = [")
   (dotimes (i (length traces))
     (format out "trace~A, " i))
-  (format out "];~3&Plotly.newPlot('myDiv', data, layout);")
+  (format out "];~3&Plotly.newPlot('myDiv', data, layout")
+  (when config
+    (format out ", ")
+    (print-as-json config out))
+  (format out ");")
   )
 
 ;;;;
@@ -44,6 +48,7 @@ You can also manually download it to your system, and set this variable to the l
 (defun print-as-html (traces layout
                       &key
                         (out *standard-output*)
+                        config
                         (plotly-js-url *plotly-js-url*))
   ;; Since the boilerplat html file is simple and fixed, we directly print it.
   (format out "<html>
@@ -59,19 +64,19 @@ center; }
 <script type='text/javascript'>
 " plotly-js-url)
   ;; generate the js for the traces and layout
-  (print-plot-js traces layout out)
+  (print-plot-js traces layout out config)
   ;;
   (format out "
 </script>
 </body>
 </html>"))
 
-(defun write-to-html (traces layout out-file-path &key (plotly-js-url *plotly-js-url*))
+(defun write-to-html (traces layout out-file-path &key (plotly-js-url *plotly-js-url*) config)
   (ensure-directories-exist out-file-path)
   (with-open-file (out out-file-path
                        :direction :output
                        :if-exists :supersede)
-    (print-as-html traces layout :out out :plotly-js-url plotly-js-url)))
+    (print-as-html traces layout :out out :plotly-js-url plotly-js-url :config config)))
 
 ;;;;
 ;;; some convenient utility
